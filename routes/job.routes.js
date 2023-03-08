@@ -31,10 +31,12 @@ jobRouter.get("/:id", async (req, res) => {
   try {
     const id = req.params.id;
     const job = await JobModel.findById({ _id: id });
-    res.status(200).json({
-      success: true,
-      Job: job,
-    });
+    if (job) {
+      res.status(200).json({
+        success: true,
+        Job: job,
+      });
+    }
   } catch (err) {
     console.log({ err: err });
     res.send({ success: false, err: err });
